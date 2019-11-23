@@ -15,10 +15,15 @@ import {
   MatSidenavModule, MatSnackBarModule,
   MatTableModule
 } from '@angular/material';
+import { ShowResultsComponent } from './show-results/show-results.component';
+import { AppRoutingModule } from './app-routing.module';
+import {RouterModule} from '@angular/router';
+import {Calculation} from './modules/calculation-request';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ShowResultsComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +44,10 @@ import {
     MatSnackBarModule,
     MatCheckboxModule,
     MatCardModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [Calculation],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

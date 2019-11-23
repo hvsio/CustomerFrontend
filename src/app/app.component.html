@@ -7,26 +7,26 @@
 
     <br>
     <p class="parag">
-      <mat-form-field id="fromCountry" appearance="outline" class="fields">
+      <mat-form-field id="fromCountry" appearance="outline" class="from">
         <mat-label>From country</mat-label>
         <mat-select>
           <mat-option #country
                       value="coun"
-                      (blur)="selectCountry(coun.abbreviation)"
-                      (onSelectionChange)="onEnterCoun($event, coun.abbreviation)"
+                      (blur)="selectCountryFrom(coun.abbreviation)"
+                      (onSelectionChange)="onEnterCountryFrom($event, coun.abbreviation)"
                       *ngFor="let coun of countrs"
           > {{ coun.abbreviation }}   ({{coun.country}}) </mat-option>
         </mat-select>
       </mat-form-field>
 
 
-      <mat-form-field id="toCountry"  appearance="outline" class="fields">
+      <mat-form-field id="toCountry"  appearance="outline" class="to">
         <mat-label>To country</mat-label>
         <mat-select>
           <mat-option #country
                       value="coun"
-                      (blur)="selectCountry(coun.abbreviation)"
-                      (onSelectionChange)="onEnterCoun($event, coun.abbreviation)"
+                      (blur)="selectCountryTo(coun.abbreviation)"
+                      (onSelectionChange)="onEnterCountryTo($event, coun.abbreviation)"
                       *ngFor="let coun of countrs"
           > {{ coun.abbreviation }}   ({{coun.country}}) </mat-option>
         </mat-select>
@@ -38,26 +38,25 @@
 
 
   <p class="parag">
-      <mat-form-field id="fromCurrency" appearance="outline" class="fields">
+      <mat-form-field id="fromCurrency" appearance="outline" class="from">
         <mat-label>From currency</mat-label>
         <mat-select>
           <mat-option #currency
                       value="c"
-                      (blur)="selectCurrency(c.currency)"
-                      (onSelectionChange)="onEnterCurr($event, c.currency)"
+                      (blur)="selectCurrencyFrom(c.currency)"
+                      (onSelectionChange)="onEnterCurrencyFrom($event, c.currency)"
                       *ngFor="let c of curr"
-          > {{ c.currency }} </mat-option>
+          > {{ c.currency }} {{c.unit_text}} </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field id="toCurrency"appearance="outline" class="fields">
+      <mat-form-field id="toCurrency"appearance="outline" class="to">
         <mat-label>To currency</mat-label>
         <mat-select>
           <mat-option #currency
                       value="c"
-                      (blur)="selectCurrency(c.currency)"
-                      (onSelectionChange)="onEnterCurr($event, c.currency)"
-                      *ngFor="let c of curr"
-          > {{ c.currency }} </mat-option>
+                      (blur)="selectCurrencyTo(c.currency)"
+                      (onSelectionChange)="onEnterCurrencyTo($event, c.currency)"
+                      *ngFor="let c of curr" > {{ c.currency }} {{c.unit_text}} </mat-option>
         </mat-select>
       </mat-form-field>
       </p>
@@ -67,7 +66,7 @@
     <p>
       <mat-form-field id="amountMoney"appearance="outline" class="fields">
         <mat-label>Amount of money</mat-label>
-        <input #amounMoney
+        <input #amountMone
                type="number"
                matInput>
       </mat-form-field>
@@ -81,15 +80,54 @@
                matInput>
       </mat-form-field>
     </p>
-    <br>
-    <button mat-raised-button id="button">Submit</button>
-    <br>
+
 
   </div>
 
 
 
 </form>
+<br>
+<button mat-raised-button id="button"
+        (click)="submitForm(amountMone.value, transactions.value)" >Submit</button>
+
+  <mat-progress-spinner class="spinner"
+                        mode="indeterminate"
+                        *ngIf="isLoading">
+  </mat-progress-spinner>
+
+
+<br>
+<div *ngIf="!isLoading">
+<h1>List of the banks</h1>
+
+  <table mat-table [dataSource]="results" >
+
+    <ng-container matColumnDef="bank">
+      <th mat-header-cell *matHeaderCellDef> Bank </th>
+      <td mat-cell *matCellDef="let bank" > {{bank.body.bank}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="exchange">
+      <th mat-header-cell *matHeaderCellDef> Exchange rate </th>
+      <td mat-cell *matCellDef="let bank" > {{bank.body.exchange}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fee">
+      <th mat-header-cell *matHeaderCellDef> Extra Fee </th>
+      <td mat-cell *matCellDef="let bank" > {{bank.body.fee}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cost">
+      <th mat-header-cell *matHeaderCellDef> Total Cost </th>
+      <td mat-cell *matCellDef="let bank" > {{bank.body.cost}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</div>
 
 <br>
 <br>

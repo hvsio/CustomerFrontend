@@ -1,48 +1,122 @@
-import { Component } from '@angular/core';
-
+import {Component, OnInit} from '@angular/core';
 
 import currencies from 'src/assets/json/currencies.json';
 import countries from 'src/assets/json/countries.json';
+import {CalculatorService} from './calculator.service';
+import {Router} from '@angular/router';
+import {Calculation} from './modules/calculation-request';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  title = 'november1-front-end';
+  // banks: any;
 
 
+  constructor(private service: CalculatorService,
+              public router: Router,
+              public calc: Calculation) {
+  }
 
-  constructor() { }
+
   curr: any = currencies;
   countrs: any = countries;
 
+  selectedCurrencyTo = '';
+  selectedCurrencyFrom = '';
 
-  selectedCurr = '';
-  selectedCoun = '';
+  selectedCountryTo = '';
+  selectedCountryFrom = '';
 
-  onEnterCoun(evt: any, s: string) {
+  // testable
+  results: any;
+  displayedColumns: string[] = ['bank', 'exchange', 'fee', 'cost'];
+  isLoading = true;
+  //
+  // submitForm(amountMoney: string, amountTransactions: string) {
+  //   this.service.getCalculations(this.selectedCountryFrom, this.selectedCountryTo,
+  //     this.selectedCurrencyFrom, this.selectedCurrencyTo,
+  //     amountMoney, amountTransactions).subscribe((response) => {
+  //       this.results = new MatTableDataSource();
+  //       this.results.data = response;
+  //       this.isLoading = false;
+  //     }
+  //   );
+
+  submitForm(amountMoney: string, amountTransactions: string) {
+    this.service.getCalculations(this.selectedCountryFrom, this.selectedCountryTo,
+      this.selectedCurrencyFrom, this.selectedCurrencyTo,
+      amountMoney, amountTransactions).subscribe((response) => {
+        this.results = new MatTableDataSource();
+        this.results.data = response;
+        console.log(response);
+        console.log(this.results);
+        console.log(this.results.data);
+        this.isLoading = false;
+      }
+    );
+
+
+    // this.service.getBanks(this.data).subscribe((response) =>{
+    //   this.router.navigate(['table']);
+    //   console.log(response);
+    // });
+  }
+
+  onEnterCountryTo(evt: any, s: string) {
     if (evt.source.selected) {
-      this.selectedCoun = s;
+      this.selectedCountryTo = s;
+      console.log(this.selectedCountryTo);
     }
   }
 
-  onEnterCurr(evt: any, s: string) {
+  onEnterCountryFrom(evt: any, s: string) {
     if (evt.source.selected) {
-      this.selectedCurr = s;
+      this.selectedCountryFrom = s;
+      console.log(this.selectedCountryFrom);
     }
   }
 
-
-  selectCurrency(value: string) {
-    this.selectedCurr = value;
+  onEnterCurrencyTo(evt: any, s: string) {
+    if (evt.source.selected) {
+      this.selectedCurrencyTo = s;
+      console.log(this.selectedCurrencyTo);
+    }
   }
 
-  selectCountry(value: string) {
-    this.selectedCoun = value;
+  onEnterCurrencyFrom(evt: any, s: string) {
+    if (evt.source.selected) {
+      this.selectedCurrencyFrom = s;
+      console.log(this.selectedCurrencyFrom);
+    }
   }
 
+  selectCurrencyFrom(value: string) {
+    this.selectedCurrencyFrom = value;
+    console.log(this.selectedCurrencyFrom);
+  }
+
+  selectCurrencyTo(value: string) {
+    this.selectedCurrencyTo = value;
+    console.log(this.selectedCurrencyTo);
+  }
+
+  selectCountryFrom(value: string) {
+    this.selectedCountryFrom = value;
+    console.log(this.selectedCountryFrom);
+  }
+
+  selectCountryTo(value: string) {
+    this.selectedCountryTo = value;
+    console.log(this.selectedCountryTo);
+  }
+
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
 }
