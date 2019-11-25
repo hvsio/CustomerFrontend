@@ -1,0 +1,82 @@
+[
+  {
+    "currency": "BGN",
+    "unit_text": "Bulgarian Lev",
+    "symbol": "лв"
+  },
+  {
+    "currency": "CHF",
+    "unit_text": "Swiss Franc",
+    "symbol": "CHF"
+  },
+  {
+    "currency": "CZK",
+    "unit_text": "Czech Koruna",
+    "symbol": "Kč"
+  },
+  {
+    "currency": "DKK",
+    "unit_text": "Danish Krone",
+    "symbol": "kr"
+  },
+  {
+    "currency": "EUR",
+    "unit_text": "Euro",
+    "symbol": "€"
+  },
+  {
+    "currency": "GBP",
+    "unit_text": "Pound Sterling",
+    "symbol": "£"
+  },
+  {
+    "currency": "HRK",
+    "unit_text": "Croatian Kuna",
+    "symbol": "kn"
+  },
+  {
+    "currency": "HUF",
+    "unit_text": "Forint",
+    "symbol": "Ft"
+  },
+  {
+    "currency": "ISK",
+    "unit_text": "Iceland Krona",
+    "symbol": "kr"
+  },
+  {
+    "currency": "LTL",
+    "unit_text": "Lithuanian Litas",
+    "symbol": "Lt"
+  },
+  {
+    "currency": "LVL",
+    "unit_text": "Latvian Lats",
+    "symbol": "Ls"
+  },
+  {
+    "currency": "NOK",
+    "unit_text": "Norwegian Krone",
+    "symbol": "kr"
+  },
+  {
+    "currency": "PLN",
+    "unit_text": "Zloty",
+    "symbol": "zł"
+  },
+  {
+    "currency": "RON",
+    "unit_text": "New Leu",
+    "symbol": "lei"
+  },
+  {
+    "currency": "RUB",
+    "unit_text": "Russian Ruble",
+    "symbol": "руб"
+  },
+  {
+    "currency": "SEK",
+    "unit_text": "Swedish Krona",
+    "symbol": "kr"
+  }
+]
