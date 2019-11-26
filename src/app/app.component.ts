@@ -4,11 +4,12 @@ import currencies from 'src/assets/json/currencies.json';
 import countries from 'src/assets/json/countries.json';
 import {CalculatorService} from './calculator.service';
 import {Router} from '@angular/router';
-import {Calculation} from './modules/calculation-request';
-import {MatTableDataSource} from '@angular/material';
+import {Calculation} from './models/calculation-request';
+import {MatSortable, MatTableDataSource} from '@angular/material';
+import {BankResults} from 'src/app/models/bank-results';
 
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
+import {MatIconRegistry} from '@angular/material/icon';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,8 @@ export class AppComponent implements OnInit {
               public router: Router,
               public calc: Calculation,
               private registry: MatIconRegistry,
-              private domSanitizer: DomSanitizer) {
+              private domSanitizer: DomSanitizer,
+              private bankResults: BankResults) {
     this.registry.addSvgIcon(`exchange-arrows`, this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/exchange-arrows.svg'));
     this.registry.addSvgIcon(`question-mark`, this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/question-mark.svg'));
     this.registry.addSvgIcon(`exlamation-mark`, this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/exlamation-mark.svg'));
@@ -43,8 +45,9 @@ export class AppComponent implements OnInit {
 
   // testable
   results: any;
-  displayedColumns: string[] = ['bank', 'exchange', 'fee', 'cost'];
+  displayedColumns: string[] = ['name', 'exchangeRate', 'totalFee', 'totalCost'];
   isLoading = true;
+  bankSuppliers: any;
   //
   // submitForm(amountMoney: string, amountTransactions: string) {
   //   this.service.getCalculations(this.selectedCountryFrom, this.selectedCountryTo,
@@ -60,20 +63,13 @@ export class AppComponent implements OnInit {
     this.service.getCalculations(this.selectedCountryFrom, this.selectedCountryTo,
       this.selectedCurrencyFrom, this.selectedCurrencyTo,
       amountMoney, amountTransactions).subscribe((response) => {
-        this.results = new MatTableDataSource();
-        this.results.data = response['body'];
-        console.log(response);
-        console.log(this.results);
-        console.log(this.results.data);
+        this.bankSuppliers = response['body'];
+        this.bankSuppliers.sort((a, b) => a['totalCost'] === b['totalCost'] ? 0 : a['totalCost'] > b['totalCost'] ? 1 : -1);
+        console.log(this.bankSuppliers)
+        this.results = new MatTableDataSource(this.bankSuppliers);
         this.isLoading = false;
       }
     );
-
-
-    // this.service.getBanks(this.data).subscribe((response) =>{
-    //   this.router.navigate(['table']);
-    //   console.log(response);
-    // });
   }
 
   onEnterCountryTo(evt: any, abbrev: string, fullName: string) {
