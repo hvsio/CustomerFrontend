@@ -102,7 +102,7 @@
                       *ngIf="isLoading">
 </mat-progress-spinner>
 
-<div *ngIf="!isLoaded">
+<div *ngIf="isLoaded">
   <h1>List of the banks</h1>
   <table mat-table [dataSource]="results">
 
