@@ -72,12 +72,6 @@ export class AppComponent implements OnInit {
         this.isLoading = false;
       }
     );
-
-
-    // this.service.getBanks(this.data).subscribe((response) =>{
-    //   this.router.navigate(['table']);
-    //   console.log(response);
-    // });
   }
 
   onEnterCountryTo(evt: any, abbrev: string, fullName: string) {
