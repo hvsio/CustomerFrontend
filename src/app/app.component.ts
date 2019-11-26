@@ -45,11 +45,15 @@ export class AppComponent implements OnInit {
 
   // testable
   results: any;
-  displayedColumns: string[] = ['name', 'exchangeRate', 'totalFee', 'totalCost'];
-  isLoading: boolean;
+  displayedColumns: string[] = ['name', 'exchangeRate', 'totalFee', 'totalCost', 'savings'];
+  isLoading = true;
   isLoaded = false;
   bankSuppliers: any;
   submitSent = false;
+
+  NOVEMBER_FIRST_COST;
+  savings: number;
+
   //
   // submitForm(amountMoney: string, amountTransactions: string) {
   //   this.service.getCalculations(this.selectedCountryFrom, this.selectedCountryTo,
@@ -73,9 +77,23 @@ export class AppComponent implements OnInit {
         this.results = new MatTableDataSource(this.bankSuppliers);
         this.isLoading = false;
         this.isLoaded = true;
+
+        Object.keys(this.bankSuppliers).some(key => {
+          console.log(this.bankSuppliers[key]['name']);
+          if (this.bankSuppliers[key]['name'] === 'November First') {
+            this.NOVEMBER_FIRST_COST = this.bankSuppliers[key]['totalCost'];
+            console.log(this.NOVEMBER_FIRST_COST);
+          }
+          }
+        );
       }
     );
   }
+
+  calculateSavings(bankCost: number, N1Cost: number): number {
+    this.savings = bankCost - N1Cost;
+    return this.savings;
+    }
 
   onEnterCountryTo(evt: any, abbrev: string, fullName: string) {
     if (evt.source.selected) {
