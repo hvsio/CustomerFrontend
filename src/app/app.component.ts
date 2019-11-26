@@ -17,9 +17,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AppComponent implements OnInit {
 
-
-
-
+  
   constructor(private service: CalculatorService,
               public router: Router,
               public calc: Calculation,
