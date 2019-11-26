@@ -18,7 +18,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class AppComponent implements OnInit {
 
-  
+
   constructor(private service: CalculatorService,
               public router: Router,
               public calc: Calculation,
@@ -46,8 +46,10 @@ export class AppComponent implements OnInit {
   // testable
   results: any;
   displayedColumns: string[] = ['name', 'exchangeRate', 'totalFee', 'totalCost'];
-  isLoading = true;
+  isLoading: boolean;
+  isLoaded = false;
   bankSuppliers: any;
+  submitSent = false;
   //
   // submitForm(amountMoney: string, amountTransactions: string) {
   //   this.service.getCalculations(this.selectedCountryFrom, this.selectedCountryTo,
@@ -60,6 +62,8 @@ export class AppComponent implements OnInit {
   //   );
 
   submitForm(amountMoney: string, amountTransactions: string) {
+    this.isLoading = true;
+    this.submitSent = true;
     this.service.getCalculations(this.selectedCountryFrom, this.selectedCountryTo,
       this.selectedCurrencyFrom, this.selectedCurrencyTo,
       amountMoney, amountTransactions).subscribe((response) => {
@@ -68,6 +72,7 @@ export class AppComponent implements OnInit {
         console.log(this.bankSuppliers)
         this.results = new MatTableDataSource(this.bankSuppliers);
         this.isLoading = false;
+        this.isLoaded = true;
       }
     );
   }
