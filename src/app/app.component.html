@@ -9,7 +9,7 @@
           <mat-option #country
                       value="coun"
                       (blur)="selectCountryFrom(coun.abbreviation)"
-                      (onSelectionChange)="onEnterCountryFrom($event, coun.abbreviation)"
+                      (onSelectionChange)="onEnterCountryFrom($event, coun.abbreviation, coun.country)"
                       *ngFor="let coun of countrs"
           > {{ coun.abbreviation }}   ({{coun.country}})
           </mat-option>
@@ -39,7 +39,7 @@
           <mat-option #country
                       value="coun"
                       (blur)="selectCountryTo(coun.abbreviation)"
-                      (onSelectionChange)="onEnterCountryTo($event, coun.abbreviation)"
+                      (onSelectionChange)="onEnterCountryTo($event, coun.abbreviation, coun.country)"
                       *ngFor="let coun of countrs"
           > {{ coun.abbreviation }}   ({{coun.country}})
           </mat-option>
@@ -82,21 +82,20 @@
           (click)="submitForm(amountMone.value, transactions.value)">Calculate
   </button>
 
-  <mat-card>
-    <mat-icon id="exlamation" svgIcon="exlamation-mark"></mat-icon>
-    <div id="prediction-text">This is calculated prediction, the final cost may vary depending on bank’s exchange
-      fees.
-    </div>
+  <mat-card id="prediction">
+    <mat-card-title>
+      <mat-icon id="exlamation-icon"></mat-icon>
+      This is calculated prediction, the final cost may vary depending on bank’s exchange fees.
+    </mat-card-title>
   </mat-card>
-
 </form>
-
 <br>
 
-<mat-card>
-  <img mat-card-lg-image> <mat-icon id="money_notes" svgIcon="exlamation-mark"></mat-icon>
-  <div id="summary">This is calculated prediction, the final cost may vary depending on bank’s exchange fees.
-  </div>
+<mat-card id="summary">
+  <mat-card-title>
+    <mat-icon id="money-icon"></mat-icon>
+    Transferring {{ amountMone.value }} {{ selectedCurrencyTo }} from {{ selectedCountryFromFull }} to {{ selectedCountryToFull }}, {{ transactions.value }} times..
+  </mat-card-title>
 </mat-card>
 
 

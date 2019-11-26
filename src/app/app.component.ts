@@ -18,6 +18,9 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class AppComponent implements OnInit {
 
+
+
+
   constructor(private service: CalculatorService,
               public router: Router,
               public calc: Calculation,
@@ -27,6 +30,7 @@ export class AppComponent implements OnInit {
     this.registry.addSvgIcon(`exchange-arrows`, this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/exchange-arrows.svg'));
     this.registry.addSvgIcon(`question-mark`, this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/question-mark.svg'));
     this.registry.addSvgIcon(`exlamation-mark`, this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/exlamation-mark.svg'));
+    this.registry.addSvgIcon(`money-notes`, this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/money-notes.svg'));
   }
 
 
@@ -36,7 +40,9 @@ export class AppComponent implements OnInit {
   selectedCurrencyTo = '';
   selectedCurrencyFrom = '';
 
+  selectedCountryToFull = '';
   selectedCountryTo = '';
+  selectedCountryFromFull = '';
   selectedCountryFrom = '';
 
   // testable
@@ -66,18 +72,26 @@ export class AppComponent implements OnInit {
         this.isLoading = false;
       }
     );
+
+
+    // this.service.getBanks(this.data).subscribe((response) =>{
+    //   this.router.navigate(['table']);
+    //   console.log(response);
+    // });
   }
 
-  onEnterCountryTo(evt: any, s: string) {
+  onEnterCountryTo(evt: any, abbrev: string, fullName: string) {
     if (evt.source.selected) {
-      this.selectedCountryTo = s;
+      this.selectedCountryTo = abbrev;
+      this.selectedCountryToFull = fullName;
       console.log(this.selectedCountryTo);
     }
   }
 
-  onEnterCountryFrom(evt: any, s: string) {
+  onEnterCountryFrom(evt: any, abbrev: string, fullName: string) {
     if (evt.source.selected) {
-      this.selectedCountryFrom = s;
+      this.selectedCountryFrom = abbrev;
+      this.selectedCountryFromFull = fullName;
       console.log(this.selectedCountryFrom);
     }
   }
