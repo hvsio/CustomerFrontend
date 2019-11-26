@@ -15,14 +15,13 @@ import {
   MatSidenavModule, MatSnackBarModule,
   MatTableModule,
 } from '@angular/material';
-import { ShowResultsComponent } from './show-results/show-results.component';
 import { AppRoutingModule } from './app-routing.module';
-import {Calculation} from './modules/calculation-request';
+import {Calculation} from './models/calculation-request';
+import {BankResults} from './models/bank-results';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ShowResultsComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +45,7 @@ import {Calculation} from './modules/calculation-request';
     MatProgressSpinnerModule,
     AppRoutingModule
   ],
-  providers: [Calculation],
+  providers: [Calculation, BankResults],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -110,25 +110,26 @@
 
   <table mat-table [dataSource]="results">
 
-    <ng-container matColumnDef="bank">
+    <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Bank</th>
-      <td mat-cell *matCellDef="let bank"> {{bank.body.bank}} </td>
+      <td mat-cell *matCellDef="let bank"> {{bank.name}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="exchange">
+    <ng-container matColumnDef="exchangeRate">
       <th mat-header-cell *matHeaderCellDef> Exchange rate</th>
-      <td mat-cell *matCellDef="let bank"> {{bank.body.exchange}} </td>
+      <td mat-cell *matCellDef="let bank"> {{bank.exchangeRate}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="fee">
+    <ng-container matColumnDef="totalFee">
       <th mat-header-cell *matHeaderCellDef> Extra Fee</th>
-      <td mat-cell *matCellDef="let bank"> {{bank.body.fee}} </td>
+      <td mat-cell *matCellDef="let bank"> {{bank.totalFee}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="cost">
+    <ng-container matColumnDef="totalCost">
       <th mat-header-cell *matHeaderCellDef> Total Cost</th>
-      <td mat-cell *matCellDef="let bank"> {{bank.body.cost}} </td>
+      <td mat-cell *matCellDef="let bank"> {{bank.totalCost}} </td>
     </ng-container>
+
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

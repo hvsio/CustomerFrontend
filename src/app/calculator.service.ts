@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import {Calculation} from 'src/app/modules/calculation-request';
+import {Calculation} from 'src/app/models/calculation-request';
 import {catchError, retry} from 'rxjs/operators';
 
 
@@ -9,7 +9,7 @@ import {catchError, retry} from 'rxjs/operators';
   providedIn: 'root',
 })
 export class CalculatorService {
-  server = 'http://127.0.0.1:5000/testfront';
+  server = 'http://35.222.69.129:13022/banksuppliers';
   errorResponse: any;
 
   constructor(private http: HttpClient) {
@@ -38,10 +38,10 @@ export class CalculatorService {
       params: {
         fromCountry: fromCountr,
         toCountry: toCountr,
-        fromCur: fromCurrency,
-        toCur: toCurrency,
-        amountMoney: amountMone,
-        amountTransactions: amountTransaction
+        fromCurrency: fromCurrency,
+        toCurrency: toCurrency,
+        volume: amountMone,
+        nrTransactions: amountTransaction
       }, observe: 'response'
     });
   }
