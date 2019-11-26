@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import {Calculation} from 'src/app/models/calculation-request';
 import {catchError, retry} from 'rxjs/operators';
 
 
