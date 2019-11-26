@@ -15,9 +15,6 @@ import {
   MatSidenavModule, MatSnackBarModule,
   MatTableModule,
 } from '@angular/material';
-import { AppRoutingModule } from './app-routing.module';
-import {Calculation} from './models/calculation-request';
-import {BankResults} from './models/bank-results';
 
 @NgModule({
   declarations: [
@@ -43,9 +40,8 @@ import {BankResults} from './models/bank-results';
     MatCheckboxModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    AppRoutingModule
   ],
-  providers: [Calculation, BankResults],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

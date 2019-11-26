@@ -3,10 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import currencies from 'src/assets/json/currencies.json';
 import countries from 'src/assets/json/countries.json';
 import {CalculatorService} from './calculator.service';
-import {Router} from '@angular/router';
-import {Calculation} from './models/calculation-request';
-import {MatSortable, MatTableDataSource} from '@angular/material';
-import {BankResults} from 'src/app/models/bank-results';
+import {MatTableDataSource} from '@angular/material';
 
 import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -20,15 +17,10 @@ export class AppComponent implements OnInit {
 
 
   constructor(private service: CalculatorService,
-              public router: Router,
-              public calc: Calculation,
               private registry: MatIconRegistry,
-              private domSanitizer: DomSanitizer,
-              private bankResults: BankResults) {
+              private domSanitizer: DomSanitizer) {
     this.registry.addSvgIcon(`exchange-arrows`, this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/exchange-arrows.svg'));
     this.registry.addSvgIcon(`question-mark`, this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/question-mark.svg'));
-    this.registry.addSvgIcon(`exlamation-mark`, this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/exlamation-mark.svg'));
-    this.registry.addSvgIcon(`money-notes`, this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/money-notes.svg'));
   }
 
 
@@ -43,9 +35,9 @@ export class AppComponent implements OnInit {
   selectedCountryFromFull = '';
   selectedCountryFrom = '';
 
-  // testable
   results: any;
   displayedColumns: string[] = ['name', 'exchangeRate', 'totalFee', 'totalCost', 'savings'];
+
   isLoading = true;
   isLoaded = false;
   bankSuppliers: any;
@@ -53,17 +45,6 @@ export class AppComponent implements OnInit {
 
   NOVEMBER_FIRST_COST;
   savings: number;
-
-  //
-  // submitForm(amountMoney: string, amountTransactions: string) {
-  //   this.service.getCalculations(this.selectedCountryFrom, this.selectedCountryTo,
-  //     this.selectedCurrencyFrom, this.selectedCurrencyTo,
-  //     amountMoney, amountTransactions).subscribe((response) => {
-  //       this.results = new MatTableDataSource();
-  //       this.results.data = response;
-  //       this.isLoading = false;
-  //     }
-  //   );
 
   submitForm(amountMoney: string, amountTransactions: string) {
     this.isLoading = true;

@@ -92,14 +92,14 @@
 <mat-card id="summary" *ngIf="submitSent">
   <mat-card-title>
     <mat-icon id="money-icon"></mat-icon>
-    Transferring {{ amountMone.valueOf() }} {{ selectedCurrencyTo }} from {{ selectedCountryFromFull }} to {{ selectedCountryToFull }}, {{ transactions.value }} times..
+    Transferring {{ amountMone }} {{ selectedCurrencyTo }} from {{ selectedCountryFromFull }} to {{ selectedCountryToFull }}, {{ transactions.value }} times..
   </mat-card-title>
 </mat-card>
 
 
 <mat-progress-spinner class="spinner"
                       mode="indeterminate"
-                      *ngIf="isLoading">
+                      *ngIf="!isLoading">
 </mat-progress-spinner>
 
 <div *ngIf="isLoaded">
