@@ -13,17 +13,16 @@ import {
   MatListModule, MatProgressSpinnerModule,
   MatSelectModule,
   MatSidenavModule, MatSnackBarModule,
-  MatTableModule
+  MatTableModule,
 } from '@angular/material';
 import { ShowResultsComponent } from './show-results/show-results.component';
 import { AppRoutingModule } from './app-routing.module';
-import {RouterModule} from '@angular/router';
 import {Calculation} from './modules/calculation-request';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ShowResultsComponent
+    ShowResultsComponent,
   ],
   imports: [
     BrowserModule,

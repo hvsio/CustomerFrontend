@@ -1,53 +1,106 @@
-.mat-form-field{
-  width: 20%;
-  margin-left: 15%;
-  margin-right: 15%;
-  height: 80px;
-  font-size: 15px;
-  display: inline-flex;
-  align-content: space-evenly;
-  justify-content:  center;
-}
-
-#button{
-  width: 100px;
-  align-self: center;
-  margin-right: auto;
-  margin-left: auto;
-  display: block;
-  background-color: lightblue;
-}
-
-.parag {
-
-  height: 80px;
-  margin-right: auto;
-  margin-left: auto;
-  display: block;
-  font-size: 15px;
-  align-content: space-evenly;
-  width: 60%;
-  justify-content: center;
-  align-self: center;
-}
-.lined{
-  position: center;
-  align-items: center;
-  width: 0;
-  margin-left: auto;
-  margin-right: auto;
+body {
+  height: 100%;
+  width: 100%;
 }
 
 form {
+  height: 100%;
   width: 100%;
 }
+
+
 
 h1 {
   width: auto;
   display: block;
-  height: 20px;
   font-size: 35px;
   text-align: center;
+  font-family: 'SansPro' !important;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 70px;
+  align-items: center;
+  color: #000000;
+  margin-bottom: 5%;
+}
+
+#exchange-icon {
+  width: 40%;
+  height: 15%;
+  margin: auto;
+  display: block;
+}
+
+#box-section {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  height: 30%;
+}
+
+#box-from {
+  width: 33%;
+  display: inline-grid;
+  height: 100%;
+}
+
+#box-icon {
+  width: 33%;
+  margin-top: auto;
+  margin-bottom: auto;
+  display: block;
+  height: 100%;
+}
+
+#box-to {
+  width: 33%;
+  display: inline-grid;
+  height: 100%;
+}
+
+.from {
+  font-size: 15px;
+  font-family: 'SansPro' !important;
+}
+
+.to {
+  font-size: 15px;
+  font-family: 'SansPro' !important;
+}
+
+
+.lined{
+  position: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 50%;
+  font-family: 'SansPro' !important;
+}
+
+.mat-card {
+  width: 48%;
+  height: 10%;
+  margin: 4% auto;
+  display: block;
+  background-color: var(--color-snackbar);
+  font-family: 'SansPro' !important;
+  font-size: 15px;
+  padding: 0;
+
+}
+
+button {
+  color: white;
+  background-color: var(--color-red) !important;
+  font-family: 'SansPro' !important;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 10%;
+  font-size: 15px;
 }
 
 
@@ -67,6 +120,22 @@ table {
   margin-top: 10%;
 }
 
+#exlamation {
+  margin: 0 4% 0 2%;
+  display: inline-block;
+  height: 100%;
+  padding-top: 10px;
+}
+
+#prediction-text {
+  display: inline-block;
+  padding-bottom: 20px;
+}
+
+.mat-option {
+  font-family: 'SansPro' !important;
+}
+
 ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
-  stroke: lightblue !important;
+  stroke: var(--color-primary) !important;
 }

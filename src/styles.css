@@ -1,4 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+  --color-primary: #055A6E;
+  --color-snackbar: #82ACB6;
+  --color-greyish: #C4D8DD;
+  --color-red: #DC3D62;
+}
+
+@font-face {
+  font-family: SansPro;
+  src: url(/assets/font/SourceSansPro-Light.otf) format("opentype");
+}

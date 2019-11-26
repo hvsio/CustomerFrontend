@@ -7,6 +7,9 @@ import {Router} from '@angular/router';
 import {Calculation} from './modules/calculation-request';
 import {MatTableDataSource} from '@angular/material';
 
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -19,7 +22,12 @@ export class AppComponent implements OnInit {
 
   constructor(private service: CalculatorService,
               public router: Router,
-              public calc: Calculation) {
+              public calc: Calculation,
+              private registry: MatIconRegistry,
+              private domSanitizer: DomSanitizer) {
+    this.registry.addSvgIcon(`exchange-arrows`, this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/exchange-arrows.svg'));
+    this.registry.addSvgIcon(`question-mark`, this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/question-mark.svg'));
+    this.registry.addSvgIcon(`exlamation-mark`, this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/exlamation-mark.svg'));
   }
 
 
@@ -52,7 +60,7 @@ export class AppComponent implements OnInit {
       this.selectedCurrencyFrom, this.selectedCurrencyTo,
       amountMoney, amountTransactions).subscribe((response) => {
         this.results = new MatTableDataSource();
-        this.results.data = response;
+        this.results.data = response['body'];
         console.log(response);
         console.log(this.results);
         console.log(this.results.data);
