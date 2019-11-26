@@ -94,7 +94,7 @@
 <mat-card id="summary">
   <mat-card-title>
     <mat-icon id="money-icon"></mat-icon>
-    Transferring {{ amountMone.value }} {{ selectedCurrencyTo }} from {{ selectedCountryFromFull }} to {{ selectedCountryToFull }}, {{ transactions.value }} times..
+    Transferring {{ amountMone.valueOf() }} {{ selectedCurrencyTo }} from {{ selectedCountryFromFull }} to {{ selectedCountryToFull }}, {{ transactions.value }} times..
   </mat-card-title>
 </mat-card>
 
@@ -116,7 +116,7 @@
 
     <ng-container matColumnDef="exchangeRate">
       <th mat-header-cell *matHeaderCellDef> Exchange rate</th>
-      <td mat-cell *matCellDef="let bank"> {{bank.exchangeRate}} </td>
+      <td mat-cell *matCellDef="let bank"> {{bank.exchangeRate.valueOf() | number: '1.0-3'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="totalFee">
@@ -126,9 +126,13 @@
 
     <ng-container matColumnDef="totalCost">
       <th mat-header-cell *matHeaderCellDef> Total Cost</th>
-      <td mat-cell *matCellDef="let bank"> {{bank.totalCost}} </td>
+      <td mat-cell *matCellDef="let bank"> {{bank.totalCost.valueOf() | number: '1.0-2'}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="savings">
+      <th mat-header-cell *matHeaderCellDef>Savings</th>
+      <td mat-cell *matCellDef="let bank"> {{calculateSavings(bank.totalCost.valueOf(), NOVEMBER_FIRST_COST.valueOf()) | number: '1.0-2'}} </td>
+    </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

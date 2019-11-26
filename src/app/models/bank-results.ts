@@ -1,6 +1,8 @@
 export class BankResults {
   name: string;
-  exchange: number;
-  cost: number;
-  fee: number;
+  exchangeRate: number;
+  totalCost: number;
+  totalFee: number;
+  savings: number;
+
 }
