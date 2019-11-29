@@ -2,29 +2,19 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
+import {environment} from 'src/environments/environment.prod';
 
+const SERVER_URL = environment.comparatorBackend + '/banksuppliers';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CalculatorService {
-  server = 'http://35.222.69.129:13022/banksuppliers';
+
   errorResponse: any;
 
   constructor(private http: HttpClient) {
   }
-
-  // httpOptions = {
-  //   headers: new HttpHeaders({
-  //     'Content-Type': 'application/json'
-  //   })
-  // };
-  //
-  // getBanks(): Observable<Calculation> {
-  //   return this.http
-  //     .get<Calculation>(this.server)
-  //     .pipe(retry(2), catchError(this.handleError));
-  // }
 
 
   getCalculations(fromCountr: string,
@@ -33,7 +23,7 @@ export class CalculatorService {
                   toCurrency: string,
                   amountMone: string,
                   amountTransaction: string): Observable<HttpResponse<Object>> {
-    return this.http.get(this.server, {
+    return this.http.get(`${SERVER_URL}`, {
       params: {
         fromCountry: fromCountr,
         toCountry: toCountr,
