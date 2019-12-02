@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
   results: any;
   displayedColumns: string[] = ['name', 'exchangeRate', 'totalFee', 'totalCost', 'savings'];
 
-  isLoading = true;
+  isLoading = false;
   isLoaded = false;
   bankSuppliers: any;
   submitSent = false;
