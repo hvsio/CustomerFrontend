@@ -46,6 +46,7 @@ export class AppComponent implements OnInit {
   ifServiceAvailable: boolean;
   submitSent = false;
   isLoading: boolean;
+  isLoading = false;
   isLoaded = false;
   bankSuppliers: any;
 
