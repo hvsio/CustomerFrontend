@@ -7,6 +7,7 @@ import {MatTableDataSource} from '@angular/material';
 
 import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
+import {N1Service} from './n1.service';
 
 @Component({
   selector: 'app-root',
@@ -17,15 +18,19 @@ export class AppComponent implements OnInit {
 
 
   constructor(private service: CalculatorService,
+              private N1service: N1Service,
               private registry: MatIconRegistry,
               private domSanitizer: DomSanitizer) {
     this.registry.addSvgIcon(`exchange-arrows`, this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/exchange-arrows.svg'));
     this.registry.addSvgIcon(`question-mark`, this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/question-mark.svg'));
+    this.registry.addSvgIcon(`express-transfer`, this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/express-transfer.svg'));
   }
 
+  toCountries: any = countries;
 
-  curr: any = currencies;
-  countrs: any = countries;
+  toCurrency: any[];
+  fromCountries: any[];
+  fromCurrency: any[];
 
   selectedCurrencyTo = '';
   selectedCurrencyFrom = '';
@@ -38,13 +43,15 @@ export class AppComponent implements OnInit {
   results: any;
   displayedColumns: string[] = ['name', 'exchangeRate', 'totalFee', 'totalCost', 'savings'];
 
-  isLoading = true;
+  ifServiceAvailable: boolean;
+  submitSent = false;
+  isLoading: boolean;
   isLoaded = false;
   bankSuppliers: any;
-  submitSent = false;
 
   NOVEMBER_FIRST_COST;
   savings: number;
+  private arr: { [p: string]: unknown }[];
 
   submitForm(amountMoney: string, amountTransactions: string) {
     this.isLoading = true;
@@ -54,27 +61,56 @@ export class AppComponent implements OnInit {
       amountMoney, amountTransactions).subscribe((response) => {
         this.bankSuppliers = response['body'];
         this.bankSuppliers.sort((a, b) => a['totalCost'] === b['totalCost'] ? 0 : a['totalCost'] > b['totalCost'] ? 1 : -1);
-        console.log(this.bankSuppliers)
+        console.log(this.bankSuppliers);
         this.results = new MatTableDataSource(this.bankSuppliers);
         this.isLoading = false;
         this.isLoaded = true;
 
         Object.keys(this.bankSuppliers).some(key => {
-          console.log(this.bankSuppliers[key]['name']);
-          if (this.bankSuppliers[key]['name'] === 'November First') {
-            this.NOVEMBER_FIRST_COST = this.bankSuppliers[key]['totalCost'];
-            console.log(this.NOVEMBER_FIRST_COST);
-          }
+            console.log(this.bankSuppliers[key]['name']);
+            if (this.bankSuppliers[key]['name'] === 'November First') {
+              this.NOVEMBER_FIRST_COST = this.bankSuppliers[key]['totalCost'];
+              console.log(this.NOVEMBER_FIRST_COST);
+            }
           }
         );
       }
     );
   }
 
+  getN1Countries() {
+    this.N1service.getAvailableCountries().subscribe(
+      data => {
+        if (this.N1service.getResponse() === 'Http failure response for http://35.222.69.129:13022/fromcountries: 0 Unknown Error') {
+          this.ifServiceAvailable = false;
+        } else {
+          this.ifServiceAvailable = true;
+        }
+        this.fromCountries = Object.entries(data).map(([k, v]) => ( { country: v, abbreviation: k } ));
+        console.log(this.fromCountries);
+      }
+    );
+  }
+
+  getAvailableCurrencies(chosenCountry: string) {
+    console.log(chosenCountry);
+    this.N1service.getAvailableCurrencies(chosenCountry).subscribe(
+      data => {
+        this.fromCurrency = Object.entries(data['FromCurrencies']).map(([k, v]) => ( { currency: v } ));
+        this.toCurrency = Object.entries(data['ToCurrencies']).map(([k, v]) => ( { currency: v } ));
+        console.log(data['ToCurrencies']);
+        console.log(this.fromCurrency);
+      });
+  }
+
+  checkName( fromCurrency: string ) {
+    return fromCurrency;
+  }
+
   calculateSavings(bankCost: number, N1Cost: number): number {
     this.savings = bankCost - N1Cost;
     return this.savings;
-    }
+  }
 
   onEnterCountryTo(evt: any, abbrev: string, fullName: string) {
     if (evt.source.selected) {
@@ -88,6 +124,7 @@ export class AppComponent implements OnInit {
     if (evt.source.selected) {
       this.selectedCountryFrom = abbrev;
       this.selectedCountryFromFull = fullName;
+      this.getAvailableCurrencies(this.selectedCountryFrom);
       console.log(this.selectedCountryFrom);
     }
   }
@@ -116,18 +153,21 @@ export class AppComponent implements OnInit {
     console.log(this.selectedCurrencyTo);
   }
 
-  selectCountryFrom(value: string) {
+  selectCountryFrom(value: string, fullName: string) {
+    this.selectedCountryFromFull = fullName;
     this.selectedCountryFrom = value;
+    this.getAvailableCurrencies(value);
     console.log(this.selectedCountryFrom);
   }
 
-  selectCountryTo(value: string) {
+  selectCountryTo(value: string, fullName: string) {
+    this.selectedCountryToFull = fullName;
     this.selectedCountryTo = value;
     console.log(this.selectedCountryTo);
   }
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.getN1Countries();
   }
 
 }

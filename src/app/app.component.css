@@ -8,10 +8,24 @@ form {
   width: 100%;
 }
 
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: var(--color-primary)!important;
+}
 
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: var(--color-primary)!important;
+}
+
+#cover {
+  background-color: pink;
+}
 
 #header {
   margin-bottom: 5%;
+}
+
+#acknowledgement {
+
 }
 
 h1 {
@@ -25,6 +39,20 @@ h1 {
   line-height: 70px;
   align-items: center;
   color: #000000;
+}
+
+#cover {
+  padding: 5%;
+  margin: 0 10%;
+  border-radius: 20px;
+}
+
+#express-transfer {
+  width: 10%;
+  height: 10%;
+  margin: auto;
+  padding: 2%;
+  display: block;
 }
 
 #exchange-icon {
@@ -83,6 +111,10 @@ h1 {
   font-family: 'SansPro' !important;
 }
 
+.n1-highlight {
+  background-color: lightblue;
+}
+
 .mat-card {
   width: 48%;
   height: 20%;
@@ -107,6 +139,8 @@ button {
   background-color: var(--color-red) !important;
   font-family: 'SansPro' !important;
   margin-left: auto;
+  margin-top: 1%;
+  margin-bottom: 2.5%;
   margin-right: auto;
   display: block;
   width: 10%;

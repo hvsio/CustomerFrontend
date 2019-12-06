@@ -1,84 +1,101 @@
 <body>
-<form>
-  <h1 id="header"> How much you can save with NovemberFirst Premium? </h1>
-  <div id="box-section">
-    <div id="box-from">
-      <mat-form-field id="fromCountry" appearance="outline" class="from">
-        <mat-label>From country</mat-label>
-        <mat-select>
-          <mat-option #country
-                      value="coun"
-                      (blur)="selectCountryFrom(coun.abbreviation)"
-                      (onSelectionChange)="onEnterCountryFrom($event, coun.abbreviation, coun.country)"
-                      *ngFor="let coun of countrs"
-          > {{ coun.abbreviation }}   ({{coun.country}})
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field id="fromCurrency" appearance="outline" class="from">
-        <mat-label>From currency</mat-label>
-        <mat-select>
-          <mat-option #currency
-                      value="c"
-                      (blur)="selectCurrencyFrom(c.currency)"
-                      (onSelectionChange)="onEnterCurrencyFrom($event, c.currency)"
-                      *ngFor="let c of curr"
-          > {{ c.currency }} {{c.unit_text}} </mat-option>
-        </mat-select>
-      </mat-form-field>
+<h1 id="header"> How much you can save with NovemberFirst Premium? </h1>
+<div id="cover" *ngIf="!ifServiceAvailable">
+  <mat-icon svgIcon="express-transfer" id="express-transfer"></mat-icon>
+  <h1>The comparison can be calculated only between 8.00 and 22.00 on working weekdays.
+    Come back later! </h1>
+</div>
+<div id="content" *ngIf="ifServiceAvailable">
+  <form>
+    <div id="box-section">
+      <div id="box-from">
+        <mat-form-field id="fromCountry" appearance="outline" class="from">
+          <mat-label>From country</mat-label>
+          <mat-select>
+            <mat-option #fromCountry
+                        value="coun"
+                        (blur)="selectCountryFrom(coun.abbreviation, coun.country)"
+                        (blur)="selectCountryFrom(coun.abbreviation, coun.country)"
+                        (onSelectionChange)="onEnterCountryFrom($event, coun.abbreviation, coun.country)"
+                        *ngFor="let coun of fromCountries"
+            > {{ coun.abbreviation }}   ({{coun.country}})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field id="fromCurrency" appearance="outline" class="from">
+          <mat-label>From currency</mat-label>
+          <mat-select>
+            <mat-option #fromCurrency
+                        value="c"
+                        (blur)="selectCurrencyFrom(c.currency)"
+                        (onSelectionChange)="onEnterCurrencyFrom($event, c.currency)"
+                        *ngFor="let c of fromCurrency"
+            > {{ c.currency }} </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div id="box-icon">
+        <mat-icon id="exchange-icon" svgIcon="exchange-arrows"></mat-icon>
+      </div>
+
+      <div id="box-to">
+        <mat-form-field id="toCountry" appearance="outline" class="to">
+          <mat-label>To country</mat-label>
+          <mat-select>
+            <mat-option #toCountry
+                        value="coun"
+                        (blur)="selectCountryTo(coun.abbreviation, coun.country)"
+                        (onSelectionChange)="onEnterCountryTo($event, coun.abbreviation, coun.country)"
+                        *ngFor="let coun of toCountries"
+            > {{ coun.abbreviation }}   ({{coun.country}})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field id="toCurrency" appearance="outline" class="to">
+          <mat-label>To currency</mat-label>
+          <mat-select>
+            <mat-option #toCurrency
+                        value="c"
+                        (blur)="selectCurrencyTo(c.currency)"
+                        (onSelectionChange)="onEnterCurrencyTo($event, c.currency)"
+                        *ngFor="let c of toCurrency"> {{ c.currency }} {{c.unit_text}} </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
 
-    <div id="box-icon">
-      <mat-icon id="exchange-icon" svgIcon="exchange-arrows"></mat-icon>
-    </div>
-
-    <div id="box-to">
-      <mat-form-field id="toCountry" appearance="outline" class="to">
-        <mat-label>To country</mat-label>
-        <mat-select>
-          <mat-option #country
-                      value="coun"
-                      (blur)="selectCountryTo(coun.abbreviation)"
-                      (onSelectionChange)="onEnterCountryTo($event, coun.abbreviation, coun.country)"
-                      *ngFor="let coun of countrs"
-          > {{ coun.abbreviation }}   ({{coun.country}})
-          </mat-option>
-        </mat-select>
+    <p>
+      <mat-form-field appearance="outline" class="lined">
+        <mat-label>Amount of money</mat-label>
+        <input #amountMone
+               type="number"
+               matInput>
       </mat-form-field>
-      <mat-form-field id="toCurrency" appearance="outline" class="to">
-        <mat-label>To currency</mat-label>
-        <mat-select>
-          <mat-option #currency
-                      value="c"
-                      (blur)="selectCurrencyTo(c.currency)"
-                      (onSelectionChange)="onEnterCurrencyTo($event, c.currency)"
-                      *ngFor="let c of curr"> {{ c.currency }} {{c.unit_text}} </mat-option>
-        </mat-select>
+    </p>
+
+    <p>
+      <mat-form-field id="transactionYearly" appearance="outline" class="lined">
+        <mat-label>Number of transactions yearly</mat-label>
+        <input #transactions
+               type="number"
+               matInput>
       </mat-form-field>
-    </div>
-  </div>
+    </p>
 
-  <p>
-    <mat-form-field appearance="outline" class="lined">
-      <mat-label>Amount of money</mat-label>
-      <input #amountMone
-             type="number"
-             matInput>
-    </mat-form-field>
-  </p>
+    <button mat-raised-button id="button"
+            (click)="submitForm(amountMone.value, transactions.value)">Calculate
+    </button>
 
-  <p>
-    <mat-form-field id="transactionYearly" appearance="outline" class="lined">
-      <mat-label>Number of transactions yearly</mat-label>
-      <input #transactions
-             type="number"
-             matInput>
-    </mat-form-field>
-  </p>
+  </form>
 
-  <button mat-raised-button id="button"
-          (click)="submitForm(amountMone.value, transactions.value)">Calculate
-  </button>
+  <mat-card id="summary" *ngIf="submitSent">
+    <mat-card-title>
+      <mat-icon id="money-icon"></mat-icon>
+      Transferring {{ amountMone.value }} {{ selectedCurrencyTo }} from {{ selectedCountryFromFull }}
+      to {{ selectedCountryToFull }}, {{ transactions.value }} times.
+    </mat-card-title>
+  </mat-card>
 
   <mat-card id="prediction">
     <mat-card-title>
@@ -86,20 +103,16 @@
       This is calculated prediction, the final cost may vary depending on bank’s exchange fees.
     </mat-card-title>
   </mat-card>
-</form>
-<br>
+  <br>
 
-<mat-card id="summary" *ngIf="submitSent">
-  <mat-card-title>
-    <mat-icon id="money-icon"></mat-icon>
-    Transferring {{ amountMone }} {{ selectedCurrencyTo }} from {{ selectedCountryFromFull }} to {{ selectedCountryToFull }}, {{ transactions.value }} times..
-  </mat-card-title>
-</mat-card>
+</div>
+
+
 
 
 <mat-progress-spinner class="spinner"
                       mode="indeterminate"
-                      *ngIf="!isLoading">
+                      *ngIf="isLoading">
 </mat-progress-spinner>
 
 <div *ngIf="isLoaded">
@@ -128,11 +141,13 @@
 
     <ng-container matColumnDef="savings">
       <th mat-header-cell *matHeaderCellDef>Savings</th>
-      <td mat-cell *matCellDef="let bank"> {{calculateSavings(bank.totalCost.valueOf(), NOVEMBER_FIRST_COST.valueOf()) | number: '1.0-2'}} </td>
+      <td mat-cell
+          *matCellDef="let bank"> {{calculateSavings(bank.totalCost.valueOf(), NOVEMBER_FIRST_COST.valueOf()) | number: '1.0-2'}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        [ngClass]="{'n1-highlight': row.name == 'November First'}"></tr>
   </table>
 
 </div>

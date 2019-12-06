@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import {Calculation} from 'src/app/models/calculation-request';
-import {catchError, retry} from 'rxjs/operators';
 
 
 @Injectable({
@@ -14,19 +12,6 @@ export class CalculatorService {
 
   constructor(private http: HttpClient) {
   }
-
-  // httpOptions = {
-  //   headers: new HttpHeaders({
-  //     'Content-Type': 'application/json'
-  //   })
-  // };
-  //
-  // getBanks(): Observable<Calculation> {
-  //   return this.http
-  //     .get<Calculation>(this.server)
-  //     .pipe(retry(2), catchError(this.handleError));
-  // }
-
 
   getCalculations(fromCountr: string,
                   toCountr: string,
