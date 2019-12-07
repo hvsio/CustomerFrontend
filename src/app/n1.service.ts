@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {observable, Observable, of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
+import {environment} from 'src/environments/environment.prod';
 
-const N1_SERVER = 'http://35.222.69.129:13022';
+const N1_SERVER =  environment.comparatorBackend;
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +23,10 @@ export class N1Service {
 
   getAvailableCurrencies(chosenCountry: string) {
     return this.http.get(`${N1_SERVER}` + '/allowedcurrencies?countryCode=' + chosenCountry);
+  }
+
+  isQuoteAvailable(): Observable<HttpResponse<Object>> {
+    return this.http.get(`${N1_SERVER}` + '/available', { observe: 'response'} ) ;
   }
 
   handleError<T>(operation = 'operation', result?: T) {

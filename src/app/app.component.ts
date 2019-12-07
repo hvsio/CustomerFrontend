@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
   results: any;
   displayedColumns: string[] = ['name', 'exchangeRate', 'totalFee', 'totalCost', 'savings'];
 
-  ifServiceAvailable: boolean;
+  ifServiceAvailable: boolean = true;
   submitSent = false;
   isLoading: boolean = false;
   isLoaded = false;
@@ -96,13 +96,13 @@ export class AppComponent implements OnInit {
   getN1Countries() {
     this.N1service.getAvailableCountries().subscribe(
       data => {
-        if (this.N1service.getResponse() === 'Http failure response for http://35.222.69.129:13022/fromcountries: 0 Unknown Error') {
+        if (this.N1service.isQuoteAvailable().subscribe(response => response.status === 503)) {
           this.ifServiceAvailable = false;
         } else {
           this.ifServiceAvailable = true;
+          this.fromCountries = Object.entries(data).map(([k, v]) => ({country: v, abbreviation: k}));
+          console.log(this.fromCountries);
         }
-        this.fromCountries = Object.entries(data).map(([k, v]) => ({country: v, abbreviation: k}));
-        console.log(this.fromCountries);
       }
     );
   }
