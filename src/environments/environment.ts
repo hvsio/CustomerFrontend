@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  comparatorBackend: ' http://127.0.0.1:13022'
+  comparatorBackend: 'http://127.0.0.1:13022'
 
 };
 

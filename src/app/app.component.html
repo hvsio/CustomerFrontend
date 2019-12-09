@@ -1,11 +1,11 @@
 <body>
 <h1 id="header"> How much you can save with NovemberFirst Premium? </h1>
-<div id="cover" *ngIf="isServiceAvailable==false">
+<div id="cover" *ngIf="isServiceAvailable===false">
   <mat-icon svgIcon="express-transfer" id="express-transfer"></mat-icon>
   <h1>The comparison can be calculated only between 8.00 (CET) and 23.00 on working weekdays.
     Come back later! </h1>
 </div>
-<div id="content" *ngIf="isServiceAvailable==true">
+<div id="content" *ngIf="isServiceAvailable===true">
   <form>
     <div id="box-section">
       <div id="box-from">

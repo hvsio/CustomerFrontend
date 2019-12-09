@@ -92,23 +92,19 @@ export class AppComponent implements OnInit {
     }
   }
 
-  isCalculatorAvailable(): boolean {
-    this.N1service.isQuoteAvailable().subscribe(response => {
-      if (response.status === 200) {
-        this.isServiceAvailable = true;
-      }});
-    if (this.isServiceAvailable) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   getN1Countries() {
     this.N1service.getAvailableCountries().subscribe(
       data => {
-        this.fromCountries = Object.entries(data).map(([k, v]) => ({country: v, abbreviation: k}));
-        console.log(this.fromCountries);
+        this.N1service.isQuoteAvailable().subscribe(response => {
+          if (response.status === 200) {
+            this.isServiceAvailable = true;
+            this.fromCountries = Object.entries(data).map(([k, v]) => ({country: v, abbreviation: k}));
+            console.log(this.fromCountries);
+          }
+        });
+        console.log(this.isServiceAvailable);
+
       }
     );
   }
@@ -212,8 +208,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.isCalculatorAvailable()) {
-      this.getN1Countries();
+     this.getN1Countries();
     }
   }
-}
+
