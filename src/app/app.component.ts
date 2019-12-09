@@ -94,12 +94,14 @@ export class AppComponent implements OnInit {
 
   isCalculatorAvailable(): boolean {
     this.N1service.isQuoteAvailable().subscribe(response => {
-      if (response.status === 503) {
-        return this.isServiceAvailable = false;
-      } else if (response.status === 200) {
-        return this.isServiceAvailable = true;
-      }
-    });
+      if (response.status === 200) {
+        this.isServiceAvailable = true;
+      }});
+    if (this.isServiceAvailable) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   getN1Countries() {
@@ -208,7 +210,6 @@ export class AppComponent implements OnInit {
       this.frequency.hasError('min') ? false :
         this.frequency.hasError('max') ? false : true;
   }
-
 
   ngOnInit(): void {
     if (this.isCalculatorAvailable()) {
