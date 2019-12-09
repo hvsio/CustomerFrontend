@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
-import {environment} from 'src/environments/environment.prod';
+import {environment} from 'src/environments/environment';
 
 const SERVER_URL = environment.comparatorBackend ;
 

@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
   results: any;
   displayedColumns: string[] = ['name', 'exchangeRate', 'totalFee', 'totalCost', 'savings'];
 
-  ifServiceAvailable: boolean = true;
+  isServiceAvailable: boolean = false;
   submitSent = false;
   isLoading: boolean = false;
   isLoaded = false;
@@ -92,17 +92,21 @@ export class AppComponent implements OnInit {
     }
   }
 
+  isCalculatorAvailable(): boolean {
+    this.N1service.isQuoteAvailable().subscribe(response => {
+      if (response.status === 503) {
+        return this.isServiceAvailable = false;
+      } else if (response.status === 200) {
+        return this.isServiceAvailable = true;
+      }
+    });
+  }
 
   getN1Countries() {
     this.N1service.getAvailableCountries().subscribe(
       data => {
-        if (this.N1service.isQuoteAvailable().subscribe(response => response.status === 503)) {
-          this.ifServiceAvailable = false;
-        } else {
-          this.ifServiceAvailable = true;
-          this.fromCountries = Object.entries(data).map(([k, v]) => ({country: v, abbreviation: k}));
-          console.log(this.fromCountries);
-        }
+        this.fromCountries = Object.entries(data).map(([k, v]) => ({country: v, abbreviation: k}));
+        console.log(this.fromCountries);
       }
     );
   }
@@ -207,7 +211,8 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getN1Countries();
+    if (this.isCalculatorAvailable()) {
+      this.getN1Countries();
+    }
   }
-
 }
