@@ -213,8 +213,19 @@ button {
   margin-left: auto;
   display: flex;
   text-align: center;
+
 }
 
+.bottom-button {
+  text-align: center;
+  width: auto;
+}
+
+.last-column-header, .last-cells {
+  display: flex;
+  padding: 21px 0;
+  justify-content: flex-end;
+}
 
 ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
   stroke: var(--color-primary) !important;
