@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
   results: any;
   displayedColumns: string[] = ['name', 'exchangeRate', 'totalFee', 'totalCost', 'savings'];
 
-  isServiceAvailable: boolean = false;
+  isServiceAvailable: boolean;
   submitSent = false;
   isLoading: boolean = false;
   isLoaded = false;
@@ -97,7 +97,8 @@ export class AppComponent implements OnInit {
     this.N1service.getAvailableCountries().subscribe(
       data => {
         this.N1service.isQuoteAvailable().subscribe(response => {
-          if (response.status === 200) {
+          console.log(' response is :' + response);
+          if (response['status'] === 'ok') {
             this.isServiceAvailable = true;
             this.fromCountries = Object.entries(data).map(([k, v]) => ({country: v, abbreviation: k}));
             console.log(this.fromCountries);
@@ -209,6 +210,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
      this.getN1Countries();
+     this.isServiceAvailable = false;
     }
   }
 

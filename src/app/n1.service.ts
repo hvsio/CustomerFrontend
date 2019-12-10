@@ -4,7 +4,7 @@ import {observable, Observable, of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {environment} from 'src/environments/environment';
 
-const N1_SERVER =  environment.comparatorBackend;
+const N1_SERVER = environment.comparatorBackend;
 
 @Injectable({
   providedIn: 'root',
@@ -25,8 +25,8 @@ export class N1Service {
     return this.http.get(`${N1_SERVER}` + '/allowedcurrencies?countryCode=' + chosenCountry);
   }
 
-  isQuoteAvailable(): Observable<HttpResponse<Object>> {
-    return this.http.get(`${N1_SERVER}` + '/available', { observe: 'response'} ) ;
+  isQuoteAvailable() {
+    return this.http.get(`${N1_SERVER}` + '/available');
   }
 
   handleError<T>(operation = 'operation', result?: T) {
