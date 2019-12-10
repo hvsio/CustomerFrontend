@@ -54,7 +54,8 @@ export class AppComponent implements OnInit {
   results: any;
   displayedColumns: string[] = ['name', 'exchangeRate', 'totalFee', 'totalCost', 'savings'];
 
-  isServiceAvailable: boolean;
+  isServiceAvailable: boolean = true;
+  isInfoAvailable: boolean = true;
   submitSent = false;
   isLoading: boolean = false;
   isLoaded = false;
@@ -71,11 +72,12 @@ export class AppComponent implements OnInit {
       this.submitSent = true;
       this.service.getCalculations(this.selectedCountryFrom, this.selectedCountryTo,
         this.selectedCurrencyFrom, this.selectedCurrencyTo,
-        amountMoney, amountTransactions).subscribe((response) => {
+        amountMoney, amountTransactions).subscribe(
+        response => {
           this.bankSuppliers = response['body'];
           this.bankSuppliers.sort((a, b) => a['totalCost'] === b['totalCost'] ? 0 : a['totalCost'] > b['totalCost'] ? 1 : -1);
-          console.log(this.bankSuppliers);
           this.results = new MatTableDataSource(this.bankSuppliers);
+          this.isInfoAvailable = true;
           this.isLoading = false;
           this.isLoaded = true;
 
@@ -87,6 +89,11 @@ export class AppComponent implements OnInit {
               }
             }
           );
+        },
+        response => {
+          console.error('Error is: ' + response);
+          this.isLoading = false;
+          this.isInfoAvailable = false;
         }
       );
     }
@@ -100,19 +107,18 @@ export class AppComponent implements OnInit {
           console.log(' response is :' + response);
           if (response['status'] === 'ok') {
             this.isServiceAvailable = true;
-            console.log("inside if = " + this.isServiceAvailable);
-          }
-          else {
+            console.log('inside if = ' + this.isServiceAvailable);
+          } else {
             this.isServiceAvailable = false;
-            console.log("inside else = " + this.isServiceAvailable);
+            console.log('inside else = ' + this.isServiceAvailable);
           }
         });
         this.fromCountries = Object.entries(data).map(([k, v]) => ({country: v, abbreviation: k}));
         console.log(this.fromCountries);
-        console.log("out of is quote available = " + this.isServiceAvailable);
+        console.log('out of is quote available = ' + this.isServiceAvailable);
 
       });
-    console.log('outside of subscribe is: '+this.isServiceAvailable);
+    console.log('outside of subscribe is: ' + this.isServiceAvailable);
   }
 
   getAvailableCurrencies(chosenCountry: string) {
@@ -215,8 +221,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-     this.getN1Countries();
-     this.isServiceAvailable = true;
-    }
+    this.getN1Countries();
+    this.isServiceAvailable = true;
   }
+}
 
