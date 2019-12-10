@@ -15,6 +15,7 @@ import {FormControl, Validators} from '@angular/forms';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent implements OnInit {
 
 
@@ -25,6 +26,7 @@ export class AppComponent implements OnInit {
     this.registry.addSvgIcon(`exchange-arrows`, this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/exchange-arrows.svg'));
     this.registry.addSvgIcon(`question-mark`, this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/question-mark.svg'));
     this.registry.addSvgIcon(`express-transfer`, this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/express-transfer.svg'));
+    this.isServiceAvailable = false;
   }
 
   amount = new FormControl('',
@@ -54,7 +56,8 @@ export class AppComponent implements OnInit {
   results: any;
   displayedColumns: string[] = ['name', 'exchangeRate', 'totalFee', 'totalCost', 'savings'];
 
-  isServiceAvailable: boolean = false;
+  isServiceAvailable: boolean;
+  // isServiceAvailable = false;
   submitSent = false;
   isLoading: boolean = false;
   isLoaded = false;
@@ -99,14 +102,15 @@ export class AppComponent implements OnInit {
         this.N1service.isQuoteAvailable().subscribe(response => {
           if (response.status === 200) {
             this.isServiceAvailable = true;
+            console.log("inside if = " + this.isServiceAvailable);
             this.fromCountries = Object.entries(data).map(([k, v]) => ({country: v, abbreviation: k}));
             console.log(this.fromCountries);
           }
         });
-        console.log(this.isServiceAvailable);
+        console.log("out of is quote available = " + this.isServiceAvailable);
 
-      }
-    );
+      });
+    console.log('outside of subscribe is: '+this.isServiceAvailable);
   }
 
   getAvailableCurrencies(chosenCountry: string) {
