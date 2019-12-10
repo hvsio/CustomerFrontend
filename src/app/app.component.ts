@@ -100,14 +100,15 @@ export class AppComponent implements OnInit {
           console.log(' response is :' + response);
           if (response['status'] === 'ok') {
             this.isServiceAvailable = true;
+            console.log("inside if = " + this.isServiceAvailable);
             this.fromCountries = Object.entries(data).map(([k, v]) => ({country: v, abbreviation: k}));
             console.log(this.fromCountries);
           }
         });
-        console.log(this.isServiceAvailable);
+        console.log("out of is quote available = " + this.isServiceAvailable);
 
-      }
-    );
+      });
+    console.log('outside of subscribe is: '+this.isServiceAvailable);
   }
 
   getAvailableCurrencies(chosenCountry: string) {
