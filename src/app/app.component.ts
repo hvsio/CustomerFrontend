@@ -102,22 +102,22 @@ export class AppComponent implements OnInit {
 
   getN1Countries() {
     this.N1service.getAvailableCountries().subscribe(
-      data => {
-        this.N1service.isQuoteAvailable().subscribe(response => {
-          console.log(' response is :' + response);
-          if (response['status'] === 'ok') {
-            this.isServiceAvailable = true;
-            console.log('inside if = ' + this.isServiceAvailable);
-          } else {
-            this.isServiceAvailable = false;
-            console.log('inside else = ' + this.isServiceAvailable);
+      data => this.fromCountries = Object.entries(data).map(([k, v]) => ({country: v, abbreviation: k})),
+      error => this.isServiceAvailable = false,
+      () => {this.N1service.isQuoteAvailable().subscribe(
+        response => {
+              console.log(' response is :' + response);
+              if (response['status'] === 'ok') {
+                this.isServiceAvailable = true;
+                console.log('inside if = ' + this.isServiceAvailable);
+              }
+            },
+        response => {
+              console.error('Error is: ' + response);
+              this.isServiceAvailable = false;
+              });
           }
-        });
-        this.fromCountries = Object.entries(data).map(([k, v]) => ({country: v, abbreviation: k}));
-        console.log(this.fromCountries);
-        console.log('out of is quote available = ' + this.isServiceAvailable);
-
-      });
+      );
     console.log('outside of subscribe is: ' + this.isServiceAvailable);
   }
 

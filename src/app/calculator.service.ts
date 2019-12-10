@@ -41,11 +41,6 @@ export class CalculatorService {
         // The response body may contain clues as to what went wrong,
         console.error(`Backend returned code ${err.status}, body was: ${err.error}`);
       }
-
-      // ...optionally return a default fallback value so app can continue (pick one)
-      // which could be a default value
-      // return Observable.of<any>({my: "default value..."});
-      // or simply an empty observable
       return throwError('Something bad happened; please try again later.');
     }));
   }
