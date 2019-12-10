@@ -103,10 +103,10 @@ export class AppComponent implements OnInit {
           if (response.status === 200) {
             this.isServiceAvailable = true;
             console.log("inside if = " + this.isServiceAvailable);
-            this.fromCountries = Object.entries(data).map(([k, v]) => ({country: v, abbreviation: k}));
             console.log(this.fromCountries);
           }
         });
+        this.fromCountries = Object.entries(data).map(([k, v]) => ({country: v, abbreviation: k}));
         console.log("out of is quote available = " + this.isServiceAvailable);
 
       });
