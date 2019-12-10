@@ -174,5 +174,29 @@
   {
     "country": "United Kingdom",
     "abbreviation": "GB"
+  },
+  {
+    "abbreviation":"AU",
+    "country":"Australia"
+  },
+  {
+    "abbreviation":"CA",
+    "country":"Canada"
+  },
+  {
+    "abbreviation":"CN",
+    "country":"China"
+  },
+  {
+    "abbreviation":"AE",
+    "country":"United Arab Emirates"
+  },
+  {
+    "abbreviation":"US",
+    "country":"United States"
+  },
+  {
+    "abbreviation":"IN",
+    "country":"India"
   }
 ]
