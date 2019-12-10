@@ -128,7 +128,12 @@
                       *ngIf="isLoading">
 </mat-progress-spinner>
 
-<div *ngIf="isLoaded && !isLoading">
+<<div id="missingInfo" *ngIf="isInfoAvailable===false && !isLoading">
+  <h1> We don't have enough information on this exchange. Sorry for the inconvenience. </h1>
+  <h1> Contact us for a quote!</h1>
+</div>
+
+<div *ngIf="isLoaded && !isLoading && isInfoAvailable === true">
   <h1>List of the banks</h1>
   <table mat-table [dataSource]="results">
 
@@ -144,7 +149,7 @@
 
     <ng-container matColumnDef="totalFee">
       <th mat-header-cell *matHeaderCellDef> Extra Fee</th>
-      <td mat-cell *matCellDef="let bank"> {{bank.totalFee}} </td>
+      <td mat-cell *matCellDef="let bank"> {{bank.totalFee.valueOf() | number: '1.0-2'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="totalCost">
