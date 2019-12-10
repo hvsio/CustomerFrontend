@@ -101,10 +101,14 @@ export class AppComponent implements OnInit {
           if (response['status'] === 'ok') {
             this.isServiceAvailable = true;
             console.log("inside if = " + this.isServiceAvailable);
-            this.fromCountries = Object.entries(data).map(([k, v]) => ({country: v, abbreviation: k}));
-            console.log(this.fromCountries);
+          }
+          else {
+            this.isServiceAvailable = false;
+            console.log("inside else = " + this.isServiceAvailable);
           }
         });
+        this.fromCountries = Object.entries(data).map(([k, v]) => ({country: v, abbreviation: k}));
+        console.log(this.fromCountries);
         console.log("out of is quote available = " + this.isServiceAvailable);
 
       });
@@ -125,6 +129,7 @@ export class AppComponent implements OnInit {
   checkName(fromCurrency: string) {
     return fromCurrency;
   }
+
 
   calculateSavings(bankCost: number, N1Cost: number): number {
     this.savings = bankCost - N1Cost;
@@ -211,7 +216,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
      this.getN1Countries();
-     this.isServiceAvailable = false;
+     this.isServiceAvailable = true;
     }
   }
 
