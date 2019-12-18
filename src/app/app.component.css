@@ -161,7 +161,8 @@ button {
 }
 
 .mat-header-row {
-  background-color: var(--color-red);
+  background-color: var(--color-primary);
+  color: white;
 }
 
 .mat-progress-spinner {
